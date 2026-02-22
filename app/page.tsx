@@ -1,13 +1,15 @@
 import Navbar from "@/components/layout/Navbar"
 import Hero from "@/components/sections/Hero"
 import Features from "@/components/sections/Features"
+import AntigravityScene from "@/components/ui/AntigravityScene"
 
 export default function Home() {
   return (
     <>
        
       <Hero />
-      <Features />
+      {/* <Features /> */}
+      <AntigravityScene/>
     </>
   )
 }
