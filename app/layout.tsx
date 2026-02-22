@@ -19,14 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="relative bg-[#f6f5f3] text-[#1a1a1a]">
+
+        {/* GLOBAL GRID LINES */}
+        <div className="pointer-events-none fixed left-12 top-0 bottom-0 w-px bg-black/10 z-0" />
+        <div className="pointer-events-none fixed right-12 top-0 bottom-0 w-px bg-black/10 z-0" />
+
         {children}
       </body>
     </html>

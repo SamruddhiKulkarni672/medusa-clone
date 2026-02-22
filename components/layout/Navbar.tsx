@@ -1,109 +1,74 @@
+// "use client"
+// import { motion, useScroll, useTransform } from "framer-motion"
+
+// export default function Navbar() {
+//   const { scrollY } = useScroll()
+//   const bg = useTransform(scrollY, [0, 80], 
+//     ["rgba(10,10,10,0)", "rgba(10,10,10,0.85)"]
+//   )
+
+//   return (
+//     <motion.nav
+//       style={{ background: bg }}
+//       className="fixed w-full z-50 backdrop-blur-xl border-b border-white/[0.06]"
+//     >
+//       <div className="max-w-[1200px] mx-auto px-6 py-5 flex justify-between items-center">
+//         <div className="font-semibold tracking-tight text-lg">
+//           YourBrand
+//         </div>
+
+//         <div className="hidden md:flex items-center gap-8 text-sm text-gray-300">
+//           <a className="hover:text-white transition duration-200">Docs</a>
+//           <a className="hover:text-white transition duration-200">Pricing</a>
+//           <a className="hover:text-white transition duration-200">GitHub</a>
+//         </div>
+//       </div>
+//     </motion.nav>
+//   )
+// }
+
+
+
+
+
+
+
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu } from "lucide-react";
-import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { motion } from "framer-motion";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "How to Use", href: "#features" },
-  { label: "Features", href: "#artworks" },
-  { label: "Gallery", href: "#gallery" },
-];
+import { ShoppingCart, Heart } from "lucide-react";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <div
-      className={`fixed left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4 transition-all duration-300 ${
-        scrolled ? "top-3" : "top-6"
-      }`}
-    >
-      <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className={`rounded-2xl bg-[#111111]/85 backdrop-blur-xl shadow-lg    transition-all duration-300 ${
-          scrolled ? "px-6 py-1" : "px-8 py-3"
-        }`}
-      >
-        <div className="flex items-center justify-between gap-6">
+    <div className="relative z-10">
 
-          {/* LOGO */}
-          <a href="#home" className="flex items-center transition-all duration-300">
-            <img
-              src="/logo.gif"
-              alt="Logo"
-              className={`object-contain transition-all duration-300 ${
-                scrolled ? "h-10 w-14 my-1" : "h-14 w-20"
-              }`}
-            />
-          </a>
+      <header className="relative flex items-center justify-between px-20 py-6 border-b border-black/10 bg-[#f6f5f3]">
 
-          {/* DESKTOP NAV */}
-          <nav className="hidden md:flex gap-6 text-sm font-medium text-white/80">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+        {/* LEFT MASK SQUARE */}
+        <div className="absolute left-12 bottom-0 translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-[#f6f5f3] border border-black/20 z-20" />
 
-          {/* CTA */}
-          <div className="hidden md:block">
-            <Button
-              className={`rounded-lg bg-black text-white transition-all duration-300 hover:scale-105 ${
-                scrolled ? "px-4 py-2 text-sm" : "px-5 py-3"
-              }`}
-            >
-              Start
-            </Button>
-          </div>
+        {/* RIGHT MASK SQUARE */}
+        <div className="absolute right-12 bottom-0 translate-y-1/2 translate-x-1/2 w-3 h-3 bg-[#f6f5f3] border border-black/20 z-20" />
 
-          {/* MOBILE MENU */}
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-white">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-
-            <SheetContent side="right" className="w-72 bg-[#111111] text-white">
-              <nav className="mt-8 flex flex-col gap-6">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="text-lg text-white/80 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-
-                <Button className="mt-4 rounded-lg bg-black text-white">
-                  Start
-                </Button>
-              </nav>
-            </SheetContent>
-          </Sheet>
-
+        <div className="text-lg tracking-[0.35em] font-light">
+          YOURHOME
         </div>
-      </motion.header>
+
+        <nav className="hidden md:flex gap-12 text-[14px] font-light tracking-wide">
+          <a className="hover:opacity-60 transition">Style</a>
+          <a className="hover:opacity-60 transition">Collections</a>
+          <a className="hover:opacity-60 transition">Blog</a>
+          <a className="hover:opacity-60 transition">About</a>
+        </nav>
+
+        <div className="flex items-center gap-8">
+          <ShoppingCart size={18} className="opacity-80 hover:opacity-100 cursor-pointer" />
+          <Heart size={18} className="opacity-80 hover:opacity-100 cursor-pointer" />
+          <button className="px-5 py-2 text-sm border border-black/20 rounded-full hover:bg-black hover:text-white transition">
+            Sign In
+          </button>
+        </div>
+
+      </header>
     </div>
   );
 }

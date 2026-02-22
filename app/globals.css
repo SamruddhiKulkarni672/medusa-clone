@@ -1,26 +1,213 @@
 @import "tailwindcss";
 
+/* Base Variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+
+  --primary: #111111;
+  --accent: #6366f1;
+  --muted: #888888;
+  --border: rgba(255,255,255,0.1);
 }
 
+/* Expose theme tokens to Tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth rendering */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Vertical side grid lines */
+.side-grid::before,
+.side-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.side-grid::before {
+  left: calc(50% - 600px);
+}
+
+.side-grid::after {
+  right: calc(50% - 600px);
+}
+
+/* Subtle center vertical grid */
+.vertical-lines {
+  background-image: linear-gradient(
+    to right,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  );
+  background-size: 80px 100%;
+}
+
+
+@keyframes drift {
+  0%   { transform: translateX(-50%) translateY(0px); }
+  50%  { transform: translateX(-50%) translateY(30px); }
+  100% { transform: translateX(-50%) translateY(0px); }
+}
+
+.animate-drift {
+  animation: drift 12s ease-in-out infinite;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 2px 2px;
+}
+
+
+/* Animated Dithering Effect */
+@keyframes noiseMove {
+  0%   { background-position: 0 0; }
+  25%  { background-position: 50px 100px; }
+  50%  { background-position: 100px 50px; }
+  75%  { background-position: 150px 150px; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes ditherMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+@keyframes ditherMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+.dither {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  opacity: 0.07;
+
+  background-image:
+    radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+
+  background-size: 4px 4px;
+  animation: ditherMove 40s linear infinite;
+
+  /* MAGIC PART */
+  mask-image: radial-gradient(circle at center,
+    black 20%,
+    rgba(0,0,0,0.7) 40%,
+    transparent 70%
+  );
+}
+
+
+@keyframes float {
+  0% { transform: translate(0px, 0px); }
+  50% { transform: translate(40px, -30px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.dither-blob {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+
+  background-size: 4px 4px;
+
+  animation:
+    ditherMove 40s linear infinite,
+    float 18s ease-in-out infinite;
+}
+
+
+
+/* Base Dark Theme */
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Side Grid Lines */
+.side-grid::before,
+.side-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.side-grid::before {
+  left: calc(50% - 600px);
+}
+
+.side-grid::after {
+  right: calc(50% - 600px);
+}
+
+/* Vertical Lines */
+.vertical-lines {
+  background-image: linear-gradient(
+    to right,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px
+  );
+  background-size: 80px 100%;
+}
+
+/* Floating Shapes */
+.floating-shape {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25; /* increase if too subtle */
+  pointer-events: none;
+  animation: float 20s ease-in-out infinite alternate;
+}
+
+.shape-1 {
+  background: radial-gradient(circle, #7c3aed, transparent 70%);
+  top: -100px;
+  left: -100px;
+}
+
+.shape-2 {
+  background: radial-gradient(circle, #a855f7, transparent 70%);
+  bottom: -150px;
+  right: -100px;
+  animation-duration: 25s;
+}
+
+@keyframes float {
+  0% { transform: translate(0px, 0px); }
+  100% { transform: translate(60px, -40px); }
 }
