@@ -100,7 +100,7 @@ export default function feature() {
         camera={{ position: [0, 0, 8], fov: 60 }}
         gl={{ antialias: true }}
       >
-        <color attach="background" args={["#050505"]} />
+        <color attach="background" args={["#ffffff"]} />
         <fog attach="fog" args={["#050505", 10, 30]} />
 
         <ambientLight intensity={0.6} />
