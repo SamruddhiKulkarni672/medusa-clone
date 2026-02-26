@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar"
 import Hero from "@/components/sections/Hero"
 import Features from "@/components/sections/Features"
 import AntigravityScene from "@/components/ui/AntigravityScene"
+import InkInsidePaths from "@/components/ui/Inkpaths"
 
 export default function Home() {
   return (
@@ -9,7 +10,8 @@ export default function Home() {
        
       <Hero />
       {/* <Features /> */}
-      <AntigravityScene/>
+      {/* <AntigravityScene/> */}
+      <InkInsidePaths width={1080} height={170} />
     </>
   )
 }
